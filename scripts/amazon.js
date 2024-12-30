@@ -2,13 +2,12 @@ import {cart, addToCart} from '../data/cart.js';
 import {products, loadProducts} from '../data/products.js';
 import { formatCurrency} from './utils/money.js';
 
-// SELECTS THE PRODUCTS GRID CLASS IN THE AMAZ
-// This selects the products-grid class in the amazon.html file 
+// SELECTS THE PRODUCTS GRID CLASS IN THE AMAZON.HTML
 // This grabs the element with the js-products-grid class and uses the innerHTML property to change the text inside the element to the productsHTML variable.
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 // UPDATE CART QUANTITY FUNCTION
-function updateCartQuantity( ){
+function updateCartQuantity(){
   let cartQuantity = 0;
   // Each time the cart quantity is updated, the function loops through the cart array and adds the quantity of each item to the cartQuantity variable. 
   // Finally, the function sets the innerHTML of the element with the class js-cart-quantity to the cartQuantity.
@@ -20,13 +19,13 @@ function updateCartQuantity( ){
 
   }
 
-// ADD TO CART BUTTON FUNCTIONALITY/INTERACTIVITY
+// ADD-TO-CART BUTTON FUNCTIONALITY/INTERACTIVITY
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
   button.addEventListener('click', () => {
     const productId = button.dataset.productId;// This gets the product id from the data-product-id attribute located in the button element
-    addToCart(productId);
-    updateCartQuantity();
+    addToCart(productId);// This calls the addToCart function from the cart.js file and passes the productId as an argument
+    updateCartQuantity();// This calls the updateCartQuantity function to update the cart quantity after adding a product to the cart
     });
   });
 
