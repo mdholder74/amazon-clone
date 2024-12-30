@@ -134,11 +134,10 @@ document.querySelectorAll('.js-delivery-option').forEach((element) => {
       const productId = element.dataset.productId;// This gets the product id and delivery option id from the data-product-id and data-delivery-option-id attributes located in the element that we want to update.
       const deliveryOptionId = element.dataset.deliveryOptionId;// This gets the delivery option id from the data-delivery-option-id attribute located in the element that we want to update.
       updateDeliveryOption(productId, deliveryOptionId);
-      renderOrderSummary();
+      renderOrderSummary();// This calls the renderOrderSummary function to update the order summary after updating the delivery option. This is recursive because it calls itself.
       renderPaymentSummary();
 
     });
   });
-
 }
 
