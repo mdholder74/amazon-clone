@@ -1,3 +1,20 @@
+import {formatCurrency} from "../scripts/utils/money.js";
+
+// Finds the product in the products array that matches the productId
+export function getProduct (productId) {
+  let matchingProduct;
+
+  products.forEach((product) => {
+      if (product.id === productId) {
+          matchingProduct = product;
+      }
+  });
+
+  return matchingProduct;
+
+}
+
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
