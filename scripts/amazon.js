@@ -2,11 +2,25 @@ import {cart, addToCart} from '../data/cart.js';
 import {products, loadProducts} from '../data/products.js';
 import { formatCurrency} from './utils/money.js';
 
+// SELECTS THE PRODUCTS GRID CLASS IN THE AMAZ
 // This selects the products-grid class in the amazon.html file 
-// And uses the innerHTML property to insert the productsHTML elements inside the products-grid div
+// This grabs the element with the js-products-grid class and uses the innerHTML property to change the text inside the element to the productsHTML variable.
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-// This makes the Add to Cart button functional/interactive when clicked
+// UPDATE CART QUANTITY FUNCTION
+function updateCartQuantity( ){
+  let cartQuantity = 0;
+  // Each time the cart quantity is updated, the function loops through the cart array and adds the quantity of each item to the cartQuantity variable. 
+  // Finally, the function sets the innerHTML of the element with the class js-cart-quantity to the cartQuantity.
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+  // This grabs the element with the class js-cart-quantity and uses the innerHTML property to change the text inside the element to the cartQuantity variable.
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
+  }
+
+// ADD TO CART BUTTON FUNCTIONALITY/INTERACTIVITY
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
   button.addEventListener('click', () => {
@@ -16,8 +30,7 @@ document.querySelectorAll('.js-add-to-cart')
     });
   });
 
-
-// This stores the products that will be displayed on the page
+// STORES THE PRODUCTS HTML ELEMENTS
 // Each time we loop through the array, we will add it inside the productsHTML variable. This is called  Accumulator pattern because we are accumulating the data inside the variable.
 let productsHTML = '';
 

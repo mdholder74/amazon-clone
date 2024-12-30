@@ -1,6 +1,6 @@
 
 
-//ADD TO CART FUNCTION
+//ADD/ INCREASE QUANTITY TO CART FUNCTION
 export function addToCart(productId) {
     let matchingItem;
 
