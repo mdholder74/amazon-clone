@@ -6,6 +6,16 @@ import { formatCurrency} from './utils/money.js';
 // And uses the innerHTML property to insert the productsHTML elements inside the products-grid div
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
+// This makes the Add to Cart button functional/interactive when clicked
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+  button.addEventListener('click', () => {
+    const productId = button.dataset.productId;// This gets the product id from the data-product-id attribute located in the button element
+    addToCart(productId);
+    updateCartQuantity();
+    });
+  });
+
 
 // This stores the products that will be displayed on the page
 // Each time we loop through the array, we will add it inside the productsHTML variable. This is called  Accumulator pattern because we are accumulating the data inside the variable.
