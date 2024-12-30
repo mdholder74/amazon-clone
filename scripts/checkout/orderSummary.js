@@ -1,6 +1,6 @@
 //The first four imports are named imports. We use curly braces to import
 // Default exports dont need curly braces when importing.Each file can only have one default export.
-import {cart, removeFromCart, updateDeliveryOption} from '../../data/cart.js';
+import {cart, removeFromCart, updateDeliveryOption} from '../../data/cart-class.js';
 import {products, getProduct} from '../../data/products.js';
 import {formatCurrency} from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js' 
@@ -44,7 +44,7 @@ export function renderOrderSummary() {
             ${matchingProduct.name}
           </div>
           <div class="product-price">
-            $${matchingProduct.getPrice()}
+            ${matchingProduct.getPrice()}
           </div>
           <div class="product-quantity js-product-quantity-${matchingProduct.id}">
             <span>

@@ -13,7 +13,56 @@ export function getProduct (productId) {
   return matchingProduct;
 
 }
+// CREATED A CLASS CALLED PRODUCT
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
 
+  // SETUP CONSTRUCTOR CODE
+  // This constructor takes in a product object and assigns the values to the properties of the class.
+  constructor(productDetails) {
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.priceCents = productDetails.priceCents;
+  }
+
+  getStartsUrl() {
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+
+  }
+  getPrice() {
+    return `$${formatCurrency(this.priceCents)}`;
+
+  }
+
+  extraInfoHTML() {
+    return '';
+  }
+
+}
+
+// The Clothing class inherits from the Product class such as properties and methods.
+// The Clothing class has a sizeChartLink property and method that the Product class does not have.
+class Clothing extends Product {
+  sizeChartLink;
+
+  constructor(productDetails) {
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  // Method overriding is a feature that allows a subclass to provide a specific implementation of a method that is already provided by one of its superclasses.
+  extraInfoHTML() {
+    return `
+    <a href="${this.sizeChartLink}" target="_blank">Size Chart</a>`
+  }
+
+}
 
 export const products = [
   {
@@ -674,4 +723,9 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((productDetails) => { // This maps over the products array and creates a new object based on the type of product. Its stored in a new array called products.
+  if (productDetails.type === "clothing") {
+    return new Clothing(productDetails);// This checks if the productDetails object has a type property with a value of "clothing" and creates a new Clothing object if it does.
+  }
+  return new Product(productDetails); // This creates a new Product object if the productDetails object does not have a type property with a value of "clothing".
+});
