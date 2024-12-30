@@ -1,10 +1,8 @@
 //The first four imports are named imports. We use curly braces to import
+// Default exports dont need curly braces when importing.Each file can only have one default export.
 import {cart, removeFromCart, updateDeliveryOption} from '../../data/cart.js';
 import {products, getProduct} from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
-import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
-// A Default Export we can use it when we only want to export one thing from a module. You dont need to use curly braces when importing a default export.
-// Each file can only have one default export.
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js' 
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
@@ -36,14 +34,12 @@ export function renderOrderSummary() {
 // For each item in the cart, we will get the product and delivery option and add it to the cartSummaryHTML variable.
   cart.forEach((cartItem) => {
     const productId = cartItem.productId
-
-    const matchingProduct = getProduct(productId);// This gets the product from the products array that matches the productId in the cartItem. 
-    // This gives us access to the product's name, image, and price.
-
+    const matchingProduct = getProduct(productId);// This gets the product from the products array that matches the productId in the cartItem. This gives us access to the product's name, image, and price.
     const deliveryOptionId = cartItem.deliveryOptionId;
-
     const deliveryOption = getDeliveryOption(deliveryOptionId);
 
+// USING DAYJS EMS LIBRARY
+// Gets the current date and add the delivery days from the delivery option to get the delivery date.
   const today = dayjs();
   const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
   const dateString = deliveryDate.format('dddd, MMMM D');
@@ -93,18 +89,19 @@ export function renderOrderSummary() {
     `;
   });
 
+  // UPDATE DELIVERY OPTION FUNCTIONALITY/INTERACTIVITY
   function deliveryOptionsHTML(matchingProduct, cartItem) {
    // STORES THE DELIVERY-OPTIONS HTML ELEMENTS
     // Each time we loop through the array, we will add it inside the html variable. This is called  Accumulator pattern because we are accumulating the data inside the
     let html = '';
 
+    // For each delivery option, we will add the delivery date and price to the html variable.
     deliveryOptions.forEach((deliveryOption) => {
       const today = dayjs();
-      const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
-      const dateString = deliveryDate.format('dddd, MMMM D');
-      const priceString = deliveryOption.priceCents === 0 ? 'FREE' : `$${formatCurrency(deliveryOption.priceCents)} `;
-      
-      const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
+      const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');// This gets the current date and adds the delivery days from the delivery option to get the delivery date.
+      const dateString = deliveryDate.format('dddd, MMMM D');// This takes the delivery date and formats it to display the day of the week, month, and day in a string format.
+      const priceString = deliveryOption.priceCents === 0 ? 'FREE' : `$${formatCurrency(deliveryOption.priceCents)} `;// This checks if the delivery option is free and sets the priceString to 'FREE' if it is. If the delivery option is not free, it sets the priceString to the price in dollars.
+      const isChecked = deliveryOption.id === cartItem.deliveryOptionId;// This checks if the delivery option id matches the deliveryOptionId in the cartItem and sets the isChecked variable to true if it does.
     
       // This generates the HTML for the delivery options by looping through the deliveryOptions array and adding the delivery date and price to the html variable when the delivery option matches the deliveryOptionId in the cartItem.
       html +=`
