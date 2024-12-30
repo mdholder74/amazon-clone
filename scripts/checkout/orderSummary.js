@@ -19,6 +19,7 @@ document.querySelectorAll('.js-delete-link').forEach((link) => {
         const productId = link.dataset.productId;// This gets the product id from the data-product-id attribute located in the link element that we want to delete.
         removeFromCart(productId);
 
+        // This removes the cart item container with the product info from the order summary when the delete link is clicked.
         const container = document.querySelector(`.js-cart-item-container-${productId}`);
         container.remove();
 
