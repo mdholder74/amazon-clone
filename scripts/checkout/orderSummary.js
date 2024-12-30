@@ -7,24 +7,6 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
 
-// SELECTS THE ORDER SUMMARY CLASS IN THE CHECKOUT.HTML
-// This grabs the element with the js-order-summary class and uses the innerHTML property to change the text inside the element to the cartSummaryHTML variable.
-document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
-
-// DELETE QUANTITY FUNCTIONALITY/INTERACTIVITY 
-document.querySelectorAll('.js-delete-link').forEach((link) => {
-    link.addEventListener('click', () => {
-        const productId = link.dataset.productId;// This gets the product id from the data-product-id attribute located in the link element that we want to delete.
-        removeFromCart(productId);
-
-        // This removes the cart item container with the product info from the order summary when the delete link is clicked.
-        const container = document.querySelector(`.js-cart-item-container-${productId}`);
-        container.remove();
-
-        renderPaymentSummary();
-
-    });
-});
 
 export function renderOrderSummary() {
 // STORES THE-CART-SUMMARY HTML ELEMENTS
@@ -127,4 +109,36 @@ export function renderOrderSummary() {
 
   }
 
-}// This will be removed shortly
+// SELECTS THE ORDER SUMMARY CLASS IN THE CHECKOUT.HTML
+// This grabs the element with the js-order-summary class and uses the innerHTML property to change the text inside the element to the cartSummaryHTML variable.
+document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
+
+// DELETE QUANTITY FUNCTIONALITY/INTERACTIVITY 
+document.querySelectorAll('.js-delete-link').forEach((link) => {
+    link.addEventListener('click', () => {
+        const productId = link.dataset.productId;// This gets the product id from the data-product-id attribute located in the link element that we want to delete.
+        removeFromCart(productId);
+
+        // This removes the cart item container with the product info from the order summary when the delete link is clicked.
+        const container = document.querySelector(`.js-cart-item-container-${productId}`);
+        container.remove();
+
+        renderPaymentSummary();
+
+    });
+});
+
+// UPDATE QUANTITY FUNCTIONALITY/INTERACTIVITY
+document.querySelectorAll('.js-delivery-option').forEach((element) => {
+    element.addEventListener('click', () => {
+      const productId = element.dataset.productId;// This gets the product id and delivery option id from the data-product-id and data-delivery-option-id attributes located in the element that we want to update.
+      const deliveryOptionId = element.dataset.deliveryOptionId;// This gets the delivery option id from the data-delivery-option-id attribute located in the element that we want to update.
+      updateDeliveryOption(productId, deliveryOptionId);
+      renderOrderSummary();
+      renderPaymentSummary();
+
+    });
+  });
+
+}
+
