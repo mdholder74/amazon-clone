@@ -13,6 +13,20 @@ import { renderPaymentSummary } from './paymentSummary.js';
 // This grabs the element with the js-order-summary class and uses the innerHTML property to change the text inside the element to the cartSummaryHTML variable.
 document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
 
+// DELETE QUANTITY FUNCTIONALITY/INTERACTIVITY 
+document.querySelectorAll('.js-delete-link').forEach((link) => {
+    link.addEventListener('click', () => {
+        const productId = link.dataset.productId;// This gets the product id from the data-product-id attribute located in the link element that we want to delete.
+        removeFromCart(productId);
+
+        const container = document.querySelector(`.js-cart-item-container-${productId}`);
+        container.remove();
+
+        renderPaymentSummary();
+
+    });
+});
+
 export function renderOrderSummary() {
 // STORES THE-CART-SUMMARY HTML ELEMENTS
 // Each time we loop through the array, we will add it inside the cartSummaryHTML variable. This is called  Accumulator pattern because we are accumulating the data inside the variable.
@@ -51,7 +65,7 @@ export function renderOrderSummary() {
             ${matchingProduct.name}
           </div>
           <div class="product-price">
-            ${matchingProduct.getPrice()}
+            $${matchingProduct.getPrice()}
           </div>
           <div class="product-quantity js-product-quantity-${matchingProduct.id}">
             <span>
@@ -79,7 +93,10 @@ export function renderOrderSummary() {
   });
 
   function deliveryOptionsHTML(matchingProduct, cartItem) {
+   // STORES THE DELIVERY-OPTIONS HTML ELEMENTS
+    // Each time we loop through the array, we will add it inside the html variable. This is called  Accumulator pattern because we are accumulating the data inside the
     let html = '';
+
     deliveryOptions.forEach((deliveryOption) => {
       const today = dayjs();
       const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
@@ -87,8 +104,9 @@ export function renderOrderSummary() {
       const priceString = deliveryOption.priceCents === 0 ? 'FREE' : `$${formatCurrency(deliveryOption.priceCents)} `;
       
       const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
-
-      html+=`
+    
+      // This generates the HTML for the delivery options by looping through the deliveryOptions array and adding the delivery date and price to the html variable when the delivery option matches the deliveryOptionId in the cartItem.
+      html +=`
         <div class="delivery-option js-delivery-option" data-product-id="${matchingProduct.id}"
         data-delivery-option-id="${deliveryOption.id}">
                 <input type="radio"

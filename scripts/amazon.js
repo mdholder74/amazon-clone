@@ -36,7 +36,7 @@ let productsHTML = '';
 // Loop through the products and generate HTML elements
 // Next we insert template literals so the data changes dynamically based on the product
   products.forEach((product) => {
-      productsHTML = productsHTML + ` 
+      productsHTML +=` 
           <div class="product-container">
             <div class="product-image-container">
               <img class="product-image"

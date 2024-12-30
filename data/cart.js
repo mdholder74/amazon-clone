@@ -42,3 +42,19 @@ export function addToCart(productId) {
 
     saveToStorage();
 }
+
+//REMOVES ITEM FROM CART BASED ON PRODUCT ID
+export function removeFromCart(productId) {
+  const newCart = [];
+// This loops through the cart array and adds all items to the newCart array except the item with the productId that we want to remove.
+  cart.forEach((cartItem) => {
+      if (cartItem.productId !== productId) {
+          newCart.push(cartItem);
+      }
+  });
+
+  cart = newCart;
+
+  saveToStorage();
+
+}
