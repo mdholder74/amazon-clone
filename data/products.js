@@ -13,7 +13,7 @@ export function getProduct (productId) {
   return matchingProduct;
 
 }
-// CREATED A CLASS CALLED PRODUCT
+// CREATED A PRODUCT CLASS
 class Product {
   id;
   image;
@@ -46,17 +46,19 @@ class Product {
 
 }
 
+// INHERITANCE
 // The Clothing class inherits from the Product class such as properties and methods.
 // The Clothing class has a sizeChartLink property and method that the Product class does not have.
 class Clothing extends Product {
   sizeChartLink;
 
   constructor(productDetails) {
-    super(productDetails);
-    this.sizeChartLink = productDetails.sizeChartLink;
+    super(productDetails);// The super keyword is used to call the constructor of the parent class Product.
+    this.sizeChartLink = productDetails.sizeChartLink;// This assigns the sizeChartLink property from the productDetails object to the sizeChartLink property of the Clothing class.
   }
 
-  // Method overriding is a feature that allows a subclass to provide a specific implementation of a method that is already provided by one of its superclasses.
+  // This method returns a link to the size chart for the clothing item from the productDetails object.
+  // We used method overriding to override the extraInfoHTML method from the Product class to make it more specific to the Clothing class.
   extraInfoHTML() {
     return `
     <a href="${this.sizeChartLink}" target="_blank">Size Chart</a>`
