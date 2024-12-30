@@ -3,9 +3,10 @@ export let cart;
 loadFromStorage();
 
 export function loadFromStorage() {
-  // This uses JSON.parse to get the cart from localStorage. If there is no cart, it sets the cart to an array with two objects. Each object has a productId and a quantity. The productId is the id of a product in the products array. The quantity is the number of that product in the cart.
+  // This uses JSON.parse to get the cart from localStorage and converts it back to an array. 
   cart = JSON.parse(localStorage.getItem('cart'))
-
+ 
+  // If there is no cart, it sets the cart to an default array with two objects inside the cart. 
   if (!cart) {
       cart = [{
         productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -17,6 +18,12 @@ export function loadFromStorage() {
         deliveryOptionId: '2',
     }];
   }
+}
+
+// SAVE TO LOCAL STORAGE FUNCTION
+// This function saves the cart to localStorage. It uses JSON.stringify to convert the cart array to a string and then saves it to localStorage with the key 'cart'.
+function saveToStorage() {
+  localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 // ADD/INCREASE QUANTITY TO CART FUNCTION
@@ -40,7 +47,7 @@ export function addToCart(productId) {
       })
     }
 
-    saveToStorage();
+    saveToStorage();// After we add the item to the cart, we call the saveToStorage function to save the cart to localStorage.
 }
 
 //REMOVES ITEM FROM CART BASED ON PRODUCT ID
@@ -55,6 +62,6 @@ export function removeFromCart(productId) {
 
   cart = newCart;
 
-  saveToStorage();
+  saveToStorage(); // After we remove the item from the cart, we call the saveToStorage function to save the cart to localStorage.
 
 }
