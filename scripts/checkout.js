@@ -1,10 +1,11 @@
 import {renderOrderSummary} from './checkout/orderSummary.js';
 import {renderPaymentSummary} from './checkout/paymentSummary.js';
-import {loadProducts, loadProductsFetch} from '../data/products.js';
-import {loadCart} from '../data/cart-class.js';
+// import {loadProducts, loadProductsFetch} from '../data/products.js';
+// import {loadCart} from '../data/cart-class.js';
 
+/*
 // EXAMPLE OF ASYNC/AWAIT
-async function  loadPage() {
+async function loadPage() {
     try{
         // throw 'error1';// This is how you manually throw an error with async/await
 
@@ -26,3 +27,7 @@ async function  loadPage() {
 
 }
 loadPage();
+*/
+
+renderOrderSummary();
+renderPaymentSummary();

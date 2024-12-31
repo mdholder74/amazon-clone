@@ -1,3 +1,4 @@
+
 import {formatCurrency} from "../scripts/utils/money.js";
 
 // Finds the product in the products array that matches the productId
@@ -13,6 +14,8 @@ export function getProduct (productId) {
   return matchingProduct;
 
 }
+
+
 // CREATED A PRODUCT CLASS
 class Product {
   id;
@@ -39,7 +42,6 @@ class Product {
     return `$${formatCurrency(this.priceCents)}`;
 
   }
-
   extraInfoHTML() {
     return '';
   }
@@ -66,6 +68,7 @@ class Clothing extends Product {
 
 }
 
+/*
 export let products = []
 
 // The fetch() method is a built-in JavaScript function that to make HTTPS requests to servers.
@@ -74,8 +77,7 @@ export function loadProductsFetch() {
   const promise = fetch('https://supersimplebackend.dev/products').then((response) => {
     return response.json()
   }).then((productsData) => {
-    products = productsData
-    .map((productDetails) => { 
+    products = productsData.map((productDetails) => { 
       if (productDetails.type === "clothing") {
         return new Clothing(productDetails);
       }
@@ -84,6 +86,7 @@ export function loadProductsFetch() {
     });
 
     console.log('load products')
+    
   }).catch((error) => {// This is how you handle an error with fetch. The catch() method is called when the promise is rejected.
     console.log('error')
   })
@@ -91,7 +94,9 @@ export function loadProductsFetch() {
   return promise;
 }
 
-/*
+*/
+
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -757,4 +762,4 @@ export const products = [
   }
   return new Product(productDetails); // This creates a new Product object if the productDetails object does not have a type property with a value of "clothing".
 });
-*/
+

@@ -1,7 +1,7 @@
 // A class is a blueprint/template for creating objects. It defines the properties and methods that an object will have.
 // A class is a way to group related data and functions together inside an object.
 
-class Cart {
+export default class Cart {
   cartItems;// This is a public property. It is accessible outside the class. It is used to store the items in the cart.
   #localStorageKey;// This is a private property. It is only accessible within the class. It is used to store the key for the localStorage item.
 

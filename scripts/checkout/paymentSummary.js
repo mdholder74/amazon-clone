@@ -1,4 +1,4 @@
-import {cart} from '../../data/cart-class.js';
+import Cart from '../../data/cart-class.js';
 import {getProduct} from '../../data/products.js';
 import {getDeliveryOption} from '../../data/deliveryOptions.js';
 import {formatCurrency} from '../utils/money.js';
@@ -6,10 +6,14 @@ import {addOrder} from '../../data/order.js';
 
 
 export function renderPaymentSummary() {
+
+    // Create an instance of the Cart class
+    const cartInstance = new Cart('cart'); // Pass the localStorage key to the Cart class constructor.
+
     let productPriceCents = 0; // This variable will store the total price of all the products in the cart.
     let shippingPriceCents = 0; // This variable will store the total cost of shipping of all the delivery options in the cart.
 
-    cart.forEach((cartItem) => {
+    cartInstance.cartItems.forEach((cartItem) => {
         const product = getProduct(cartItem.productId);
         productPriceCents += product.priceCents * cartItem.quantity;// This calculates the total price of all the products in the cart by multiplying the product price by the quantity of each product.
         const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
@@ -59,6 +63,7 @@ const paymentSummaryHTML = `
 
 document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
 
+
 // USED BACKEDN REQUEST TO PLACE ORDER
 // This adds an event listener to the Place-your-order-button. When the button is clicked, the function sends a POST request to the server with the cart products data. 
 // If the request is successful, the function adds the order to the orders array and redirects the user to the orders page.
@@ -70,7 +75,7 @@ document.querySelector('.js-place-order').addEventListener('click', async () => 
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({// This sends the cart data to the server as a JSON string.
-                cart: cart
+                cart: cartInstance.cartItems
             })
         });
     
@@ -85,3 +90,4 @@ document.querySelector('.js-place-order').addEventListener('click', async () => 
 });
 
 }
+

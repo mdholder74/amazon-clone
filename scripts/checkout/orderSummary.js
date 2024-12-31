@@ -1,6 +1,7 @@
+
 //The first four imports are named imports. We use curly braces to import
 // Default exports dont need curly braces when importing.Each file can only have one default export.
-import {cart, removeFromCart, updateDeliveryOption} from '../../data/cart-class.js';
+import Cart from '../../data/cart-class.js';
 import {products, getProduct} from '../../data/products.js';
 import {formatCurrency} from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js' 
@@ -8,13 +9,16 @@ import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js'
 import {renderPaymentSummary} from './paymentSummary.js';
 
 
+// Create an instance of the Cart class
+const cartInstance = new Cart('cart');
+
 export function renderOrderSummary() {
 // STORES THE-CART-SUMMARY HTML ELEMENTS
 // Each time we loop through the array, we will add it inside the cartSummaryHTML variable. This is called  Accumulator pattern because we are accumulating the data inside the variable.
   let cartSummaryHTML = '';
 
 // For each item in the cart, we will get the product and delivery option and add it to the cartSummaryHTML variable.
-  cart.forEach((cartItem) => {
+cartInstance.cartItems.forEach((cartItem) => {
     const productId = cartItem.productId
     const matchingProduct = getProduct(productId);// This gets the product from the products array that matches the productId in the cartItem. This gives us access to the product's name, image, and price.
     const deliveryOptionId = cartItem.deliveryOptionId;
@@ -117,7 +121,7 @@ document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
 document.querySelectorAll('.js-delete-link').forEach((link) => {
     link.addEventListener('click', () => {
         const productId = link.dataset.productId;// This gets the product id from the data-product-id attribute located in the link element that we want to delete.
-        removeFromCart(productId);
+        cartInstance.removeFromCart(productId);
 
         // This removes the cart item container with the product info from the order summary when the delete link is clicked.
         const container = document.querySelector(`.js-cart-item-container-${productId}`);
@@ -133,7 +137,7 @@ document.querySelectorAll('.js-delivery-option').forEach((element) => {
     element.addEventListener('click', () => {
       const productId = element.dataset.productId;// This gets the product id and delivery option id from the data-product-id and data-delivery-option-id attributes located in the element that we want to update.
       const deliveryOptionId = element.dataset.deliveryOptionId;// This gets the delivery option id from the data-delivery-option-id attribute located in the element that we want to update.
-      updateDeliveryOption(productId, deliveryOptionId);
+      cartInstance.updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();// This calls the renderOrderSummary function to update the order summary after updating the delivery option. This is recursive because it calls itself.
       renderPaymentSummary();
 
