@@ -2,7 +2,6 @@ import Cart from '../../data/cart-class.js';
 import {products, loadProductsFetch} from '../data/products.js';
 import { formatCurrency} from './utils/money.js';
 
-
 // Create an instance of the Cart class
 const cartInstance = new Cart('cart');
 
