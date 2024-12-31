@@ -1,4 +1,3 @@
-
 import {formatCurrency} from "../scripts/utils/money.js";
 
 // Finds the product in the products array that matches the productId
@@ -72,7 +71,7 @@ export let products = []
 
 // The fetch() method is a built-in JavaScript function that to make HTTPS requests to servers.
 // Once the promise is returned, it will be saved in the parameter of the then(productsData) as a response.
-export async function loadProductsFetch(callbackfun) {
+export async function loadProductsFetch(callbackFun) {
   try {
       const response = await fetch('https://supersimplebackend.dev/products');
       if (!response.ok) throw new Error('Failed to fetch products');
@@ -86,7 +85,7 @@ export async function loadProductsFetch(callbackfun) {
           return new Product(productDetails); // This creates a new Product object if the productDetails object does not have a type property with a value of "clothing".
       });
       
-      callbackfun();// This calls the function passed as an parameter to the loadProductsFetch function. This allows the function to be called after the products have been fetched and loaded.
+      if(callbackFun)callbackFun();// This calls the function passed as an parameter to the loadProductsFetch function. This allows the function to be called after the products have been fetched and loaded.
 
       console.log('Products Array:', products); // Verify the products array
   } catch (error) {

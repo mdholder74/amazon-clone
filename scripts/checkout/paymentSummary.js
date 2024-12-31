@@ -64,12 +64,12 @@ const paymentSummaryHTML = `
 document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
 
 
-// USED BACKEDN REQUEST TO PLACE ORDER
+// USED A BACKEND REQUEST TO PLACE ORDER
 // This adds an event listener to the Place-your-order-button. When the button is clicked, the function sends a POST request to the server with the cart products data. 
 // If the request is successful, the function adds the order to the orders array and redirects the user to the orders page.
 document.querySelector('.js-place-order').addEventListener('click', async () => {
     try {
-        const response = await fetch('https://supersimplebackend.dev/orders', {// This is the URL path to the orders endpoint where the POST request is sent.
+        const response = await fetch('https://supersimplebackend.dev/orders', {// The second argument of the fetch function is an object with the request information. 
             method: 'POST',// POST sends data to the server.
             headers: {// Headers are required to send JSON data.
                 'Content-Type': 'application/json'
@@ -80,13 +80,12 @@ document.querySelector('.js-place-order').addEventListener('click', async () => 
         });
     
         const order = await response.json()// This converts the response from the server to JSON.
-        addOrder(order);
-
-    }catch (error) {
+        addOrder(order);// This adds the order to the orders array in localStorage.
+    } catch (error) {
         console.error('Unexpected error. Try again later.')
     }
 
-    window.location.href = 'orders.html';// Redirects to the orders page through the browser and the path.
+    window.location.href = 'orders.html';// Opens the orders page after the order is placed by changing the URL PATH checkout.html to orders.html.
 });
 
 }
