@@ -1,6 +1,6 @@
 //The first four imports are named imports. We use curly braces to import
 // Default exports dont need curly braces when importing.Each file can only have one default export.
-import Cart from '../../data/cart-class.js';
+import Cart from '../../data/cartClass.js';
 import {products, getProduct} from '../../data/products.js';
 import {formatCurrency} from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js' 

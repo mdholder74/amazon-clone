@@ -1,4 +1,4 @@
-import Cart from '../../data/cart-class.js';
+import Cart from '../../data/cartClass.js';
 import {products, loadProductsFetch} from '../data/products.js';
 import { formatCurrency} from './utils/money.js';
 

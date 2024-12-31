@@ -1,7 +1,7 @@
 import {renderOrderSummary} from './checkout/orderSummary.js';
 import {renderPaymentSummary} from './checkout/paymentSummary.js';
 import {products, loadProductsFetch} from '../data/products.js';
-import {loadCart} from '../data/cart-class.js';
+import {loadCart} from '../data/cartClass.js';
 
 // This loads the page when the user navigates to the checkout page.
 async function loadPage() {
