@@ -1,8 +1,8 @@
 import {cart} from '../../data/cart-class.js';
 import {getProduct} from '../../data/products.js';
-import { getDeliveryOption } from '../../data/deliveryOptions.js';
-import { formatCurrency } from '../utils/money.js';
-import { addOrder } from '../../data/order.js';
+import {getDeliveryOption} from '../../data/deliveryOptions.js';
+import {formatCurrency} from '../utils/money.js';
+import {addOrder} from '../../data/order.js';
 
 
 export function renderPaymentSummary() {
@@ -58,5 +58,30 @@ const paymentSummaryHTML = `
 `;
 
 document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
+
+// USED BACKEDN REQUEST TO PLACE ORDER
+// This adds an event listener to the Place-your-order-button. When the button is clicked, the function sends a POST request to the server with the cart products data. 
+// If the request is successful, the function adds the order to the orders array and redirects the user to the orders page.
+document.querySelector('.js-place-order').addEventListener('click', async () => {
+    try {
+        const response = await fetch('https://supersimplebackend.dev/orders', {// This is the URL path to the orders endpoint where the POST request is sent.
+            method: 'POST',// POST sends data to the server.
+            headers: {// Headers are required to send JSON data.
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({// This sends the cart data to the server as a JSON string.
+                cart: cart
+            })
+        });
+    
+        const order = await response.json()// This converts the response from the server to JSON.
+        addOrder(order);
+
+    }catch (error) {
+        console.error('Unexpected error. Try again later.')
+    }
+
+    window.location.href = 'orders.html';// Redirects to the orders page through the browser and the path.
+});
 
 }

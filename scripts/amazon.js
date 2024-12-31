@@ -1,7 +1,10 @@
 import {cart, addToCart} from '../data/cart.js';
-import {products, loadProducts} from '../data/products.js';
+import {products, loadProductsFetch} from '../data/products.js';
 import { formatCurrency} from './utils/money.js';
 
+loadProductsFetch(renderProductsGrid);
+
+function renderProductsGrid () {
 
 // STORES THE PRODUCTS HTML ELEMENTS
 // Each time we loop through the array, we will add it inside the productsHTML variable. This is called  Accumulator pattern because we are accumulating the data inside the variable.
@@ -91,3 +94,4 @@ document.querySelectorAll('.js-add-to-cart')
     updateCartQuantity();// This calls the updateCartQuantity function to update the cart quantity after adding a product to the cart
     });
   });
+}
