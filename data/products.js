@@ -15,7 +15,6 @@ export function getProduct (productId) {
 
 }
 
-
 // CREATED A PRODUCT CLASS
 class Product {
   id;
@@ -68,35 +67,37 @@ class Clothing extends Product {
 
 }
 
-/*
+// This is an empty array that will store the products fetched from the server.
 export let products = []
 
 // The fetch() method is a built-in JavaScript function that to make HTTPS requests to servers.
 // Once the promise is returned, it will be saved in the parameter of the then(productsData) as a response.
-export function loadProductsFetch() {
-  const promise = fetch('https://supersimplebackend.dev/products').then((response) => {
-    return response.json()
-  }).then((productsData) => {
-    products = productsData.map((productDetails) => { 
-      if (productDetails.type === "clothing") {
-        return new Clothing(productDetails);
-      }
-      return new Product(productDetails);
-    
-    });
+export async function loadProductsFetch(callbackfun) {
+  try {
+      const response = await fetch('https://supersimplebackend.dev/products');
+      if (!response.ok) throw new Error('Failed to fetch products');
+      const productsData = await response.json();
+      console.log('Fetched Products:', productsData); // Debugging line
 
-    console.log('load products')
-    
-  }).catch((error) => {// This is how you handle an error with fetch. The catch() method is called when the promise is rejected.
-    console.log('error')
-  })
+      products = productsData.map((productDetails) => {//This maps over the products array and creates a new object based on the type of product. Its stored in a new array called products.
+          if (productDetails.type === 'clothing') { // This checks if the productDetails object has a type property with a value of "clothing" and creates a new Clothing object if it does.
+              return new Clothing(productDetails);
+          }
+          return new Product(productDetails); // This creates a new Product object if the productDetails object does not have a type property with a value of "clothing".
+      });
+      
+      callbackfun();// This calls the function passed as an parameter to the loadProductsFetch function. This allows the function to be called after the products have been fetched and loaded.
 
-  return promise;
+      console.log('Products Array:', products); // Verify the products array
+  } catch (error) {
+      console.error('Error in loadProductsFetch:', error);
+      throw error;
+  }
 }
 
-*/
 
 
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -762,4 +763,5 @@ export const products = [
   }
   return new Product(productDetails); // This creates a new Product object if the productDetails object does not have a type property with a value of "clothing".
 });
+*/
 

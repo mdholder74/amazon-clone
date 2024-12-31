@@ -1,14 +1,14 @@
 import Cart from '../../data/cart-class.js';
-// import {cart, addToCart} from '../data/cart.js';
-import {products} from '../data/products.js';
+import {products, loadProductsFetch} from '../data/products.js';
 import { formatCurrency} from './utils/money.js';
+
 
 // Create an instance of the Cart class
 const cartInstance = new Cart('cart');
 
-// loadProductsFetch(renderProductsGrid);
+loadProductsFetch(renderProductsGrid);
 
-function renderProductsGrid () {
+function renderProductsGrid() {
 
   // STORES THE PRODUCTS HTML ELEMENTS
   // Each time we loop through the array, we will add it inside the productsHTML variable. This is called  Accumulator pattern because we are accumulating the data inside the variable.
@@ -99,5 +99,3 @@ function renderProductsGrid () {
       });
     });
 }
-
-renderProductsGrid ()

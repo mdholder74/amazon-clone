@@ -88,3 +88,25 @@ export default class Cart {
     this.saveToStorage();
   };
 }
+
+export let loadProducts = [];
+
+export async function loadCart() {
+    try {
+        const response = await fetch('https://supersimplebackend.dev/cart');
+        
+        // Check if the response is ok (status code 200-299)
+        if (!response.ok) {
+            throw new Error(`Error fetching cart data: ${response.statusText}`);
+        }
+
+        const cartData = await response.json(); // Parse the JSON response
+        console.log(cartData); // Log the response data
+
+        // You can return or process the data here as needed
+        return cartData; // If you want to return the data for further use
+    } catch (error) {
+        console.error('Error loading cart:', error);
+    }
+}
+

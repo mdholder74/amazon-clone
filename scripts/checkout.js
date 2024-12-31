@@ -1,33 +1,28 @@
 import {renderOrderSummary} from './checkout/orderSummary.js';
 import {renderPaymentSummary} from './checkout/paymentSummary.js';
-// import {loadProducts, loadProductsFetch} from '../data/products.js';
-// import {loadCart} from '../data/cart-class.js';
+import {products, loadProductsFetch} from '../data/products.js';
+import {loadCart} from '../data/cart-class.js';
 
-/*
-// EXAMPLE OF ASYNC/AWAIT
+// This loads the page when the user navigates to the checkout page.
 async function loadPage() {
-    try{
-        // throw 'error1';// This is how you manually throw an error with async/await
-
+    try {
+        console.log('Currently Fetching products...');
         await loadProductsFetch();
+        console.log('Successfully fetched products!');
+        console.log('Displaying Products Array:', products); // Debugging line
 
-        const value = await new Promise((resolve, reject) => {// Use reject to throw an error in the future or async/await
-            loadCart(() => {
-                resolve('value3');
-            });  
-        });
+        console.log('Currently Fetching cart...');
+        await loadCart(); // Wait for the cart to load
+        console.log('Successfully fetched cart!');
 
-    } catch (error) {// This is how you handle errors with async/await
-        console.log(error);
+        renderOrderSummary();
+        renderPaymentSummary();
+    } catch (error) {
+        console.error('Error loading page:', error);
     }
-
-
-    renderOrderSummary();
-    renderPaymentSummary();
-
 }
-loadPage();
-*/
 
-renderOrderSummary();
-renderPaymentSummary();
+loadPage();
+
+
+
